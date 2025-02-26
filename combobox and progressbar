@@ -1,0 +1,57 @@
+import tkinter as tk 
+from tkinter import ttk
+
+
+window=tk.Tk()
+
+window.title("image manipulator project window layout")
+window.geometry("700x500")
+window.configure(background='cyan')
+
+# creating a program which uses slider and progressbars 
+
+# progress bar 
+
+
+canvas = tk.Canvas(window, scrollregion=(0, 0, 1000, 1000))  # Set scrollable region
+
+# Vertical Scrollbar
+vsb = tk.Scrollbar(window, orient="vertical", command=canvas.yview)
+vsb.pack(side="right", fill="y")
+canvas.configure(yscrollcommand=vsb.set,background="cyan")
+
+
+
+
+label=ttk.Label(canvas,text="PROJECT ROLE",background="cyan",font="calibri,italic")
+label.pack()
+label2=ttk.Label(canvas,text="CHOOSE YOUR NAME",background="cyan",font="calibri,bold")
+label2.pack(pady=10)
+items=["SHREYAS","SAM","NISSIM"]
+combobox=ttk.Combobox(master=canvas,width=30,height=20,values=items)
+
+def on_combobox_select(event):
+    selected_option = combobox.get()
+    print(f"Selected option: {selected_option}")
+    selection_label.config(text=f"You selected: {selected_option}")
+combobox.pack(pady=50)
+combobox.bind("<<ComboboxSelected>>", on_combobox_select)
+selection_label = tk.Label(canvas, text = "You selected:Nothing",background="cyan",font="calibri,bold")
+selection_label.pack(pady=10)
+
+def operation():
+    selected_option = combobox.get()
+   
+    
+    if selected_option == "SHREYAS":
+        outputlabel.config(text="SHREYAS IS WORKING ON TKINTER")
+    elif selected_option == "SAM":
+        outputlabel.config(text="SAM IS WORKING ON INTERLINKING")
+    elif selected_option == "NISSIM":
+        outputlabel.config(text="NISSIM IS WORKING ON PILLOW")
+outputbutton=tk.Button(canvas,text="CHECK ROLE",font="calibri,bold",command=operation)
+outputbutton.pack()
+outputlabel=tk.Label(canvas,text="",background="cyan",font="calibri,bold")
+outputlabel.pack()
+canvas.pack(side="left", fill="both", expand=True)
+window.mainloop()
